@@ -84,12 +84,28 @@ namespace API.Controllers
         // POST: api/Post
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Post>> PostPost(Post post)
+        public async Task<ActionResult<Post>> PostPost([FromBody] PostCreationDto postDto)
         {
           if (_context.Posts == null)
           {
               return Problem("Entity set 'AuthorContext.Posts'  is null.");
           }
+          
+          // Find the author by name
+          var author = await _context.Authors.FirstOrDefaultAsync(a => a.Name == postDto.AuthorName);
+          if (author == null)
+          {
+              return NotFound("Author not found");
+          }
+         
+          // Create a new Post using the DTO and found AuthorId
+          var post = new Post
+          {
+              Title = postDto.Title,
+              Content = postDto.Content,
+              AuthorId = author.Id
+          };
+            
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 
