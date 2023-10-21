@@ -93,12 +93,16 @@ namespace API.Controllers
           
           // Find the author by name
           var author = await _context.Authors.FirstOrDefaultAsync(a => a.Name == postDto.AuthorName);
+         
+          // If the author is not found, create a new one
           if (author == null)
           {
-              return NotFound("Author not found");
+              author = new Author { Name = postDto.AuthorName, Biography = "Just a fellow writer with a passion!"};
+              _context.Authors.Add(author);
+              await _context.SaveChangesAsync();
           }
-         
-          // Create a new Post using the DTO and found AuthorId
+          
+          // Create a new Post using the DTO and found or created Author's ID
           var post = new Post
           {
               Title = postDto.Title,
