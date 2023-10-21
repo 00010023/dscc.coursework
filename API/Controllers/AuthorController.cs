@@ -116,6 +116,21 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [HttpGet("{id}/Posts")]
+        public async Task<ActionResult<IEnumerable<Post>>> GetAuthorPosts(int id)
+        {
+            var author = await _context.Authors.FindAsync(id);
+
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            var posts = await _context.Posts.Where(p => p.AuthorId == id).ToListAsync();
+
+            return posts;
+        }
+
         private bool AuthorExists(int id)
         {
             return (_context.Authors?.Any(e => e.Id == id)).GetValueOrDefault();
