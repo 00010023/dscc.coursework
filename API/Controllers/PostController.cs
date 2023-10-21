@@ -29,7 +29,7 @@ namespace API.Controllers
           {
               return NotFound();
           }
-            return await _context.Posts.ToListAsync();
+            return await _context.Posts.Include(p => p.Author).ToListAsync();
         }
 
         // GET: api/Post/5
@@ -40,7 +40,7 @@ namespace API.Controllers
           {
               return NotFound();
           }
-            var post = await _context.Posts.FindAsync(id);
+            var post = await _context.Posts.Include(p => p.Author).FirstOrDefaultAsync(p => p.Id == id);
 
             if (post == null)
             {
