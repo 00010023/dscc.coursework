@@ -3,9 +3,9 @@ using API.Models;
 
 namespace API.Data;
 
-public class AuthorContext : DbContext
+public class DataContext : DbContext
 {
-    public AuthorContext(DbContextOptions<AuthorContext> options)
+    public DataContext(DbContextOptions<DataContext> options)
         : base(options)
     {
     }

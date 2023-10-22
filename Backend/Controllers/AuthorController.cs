@@ -14,9 +14,9 @@ namespace API.Controllers
     [ApiController]
     public class AuthorController : ControllerBase
     {
-        private readonly AuthorContext _context;
+        private readonly DataContext _context;
 
-        public AuthorController(AuthorContext context)
+        public AuthorController(DataContext context)
         {
             _context = context;
         }
