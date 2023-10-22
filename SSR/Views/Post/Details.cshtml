@@ -1,0 +1,7 @@
+@model SSR.Models.Post
+
+<h1>@Model.Title</h1>
+<p>By: @Model.Author.Name</p>
+<p>@Model.Content</p>
+
+@Html.ActionLink("Back to list", "Index")

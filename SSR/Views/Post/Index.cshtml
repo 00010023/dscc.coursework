@@ -1,0 +1,25 @@
+@model IEnumerable<SSR.Models.Post>
+
+<h1>Posts</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var post in Model)
+    {
+        <tr>
+            <td>@post.Title</td>
+            <td>@post.Author.Name</td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = post.Id })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

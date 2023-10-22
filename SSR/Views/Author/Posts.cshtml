@@ -1,0 +1,23 @@
+@model IEnumerable<SSR.Models.Post>
+
+<h1>Posts</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var post in Model)
+    {
+        <tr>
+            <td>@post.Title</td>
+            <td>@post.Content</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@Html.ActionLink("Back to authors", "Index")
