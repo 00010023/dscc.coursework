@@ -1,0 +1,25 @@
+version: '3.9'
+
+# c.f. docker-compose, run a script after container has started?
+# https://stackoverflow.com/questions/47615751
+
+services:
+  mssql:
+    container_name: mssql
+    hostname: mssql
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=AreY0uD0neW1thCW!
+      - MSSQL_PID=Express
+  mssqlsetup:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    depends_on:
+      - mssql
+    restart: "no"
+    entrypoint: [ "bash", "-c", "sleep 10 && /init.sh"]
+    volumes:
+      - ./init.sh:/init.sh
+      - ./init.sql:/init.sql
