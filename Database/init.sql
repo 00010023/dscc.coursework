@@ -1,3 +1,7 @@
+-- Get into correct database
+USE Blog;
+GO
+
 -- Insert sample data into Authors table
 INSERT INTO Authors (Name, Biography)
 VALUES 

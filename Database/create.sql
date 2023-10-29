@@ -19,6 +19,5 @@ CREATE TABLE Posts (
     Title NVARCHAR(200) NOT NULL,
     Content NVARCHAR(MAX) NOT NULL,
     AuthorId INT NOT NULL,
-    FOREIGN KEY (AuthorId) REFERENCES Authors(Id)
 );
 GO
