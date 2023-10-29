@@ -7,17 +7,18 @@ GO
 
 -- Create the Authors table
 CREATE TABLE Authors (
-    Id INT PRIMARY KEY IDENTITY(1,1),
-    Name NVARCHAR(255) NOT NULL,
-    Biography NVARCHAR(MAX)
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    Biography NVARCHAR(MAX) NULL
 );
 GO
 
 -- Create the Posts table
 CREATE TABLE Posts (
-    Id INT PRIMARY KEY IDENTITY(1,1),
-    Title NVARCHAR(255) NOT NULL,
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Title NVARCHAR(200) NOT NULL,
     Content NVARCHAR(MAX) NOT NULL,
-    AuthorId INT FOREIGN KEY REFERENCES Authors(Id)
+    AuthorId INT NOT NULL,
+    FOREIGN KEY (AuthorId) REFERENCES Authors(Id)
 );
 GO
