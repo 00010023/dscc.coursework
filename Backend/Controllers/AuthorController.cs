@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Data;
@@ -104,12 +99,23 @@ namespace API.Controllers
             {
                 return NotFound();
             }
+            
             var author = await _context.Authors.FindAsync(id);
             if (author == null)
             {
                 return NotFound();
             }
 
+            // Retrieve all posts related to the author
+            var posts = await _context.Posts.Where(p => p.AuthorId == id).ToListAsync();
+
+            // Delete all posts related to the author
+            if (posts != null && posts.Count > 0)
+            {
+                _context.Posts.RemoveRange(posts);
+            }
+            
+            // Now delete the author itself
             _context.Authors.Remove(author);
             await _context.SaveChangesAsync();
 
