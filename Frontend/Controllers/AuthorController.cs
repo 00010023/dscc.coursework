@@ -29,4 +29,21 @@ public class AuthorController : Controller
         var posts = await _apiService.GetPostsByAuthorId(id);
         return View(posts);
     }
+    
+    // Add this action method to handle author deletion
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var author = await _apiService.GetAuthorById(id);
+        if (author == null)
+        {
+            return NotFound();
+        }
+
+        // Call your API to delete the author and related posts
+        await _apiService.DeleteAuthorById(id);
+
+        // Redirect back to the list of authors
+        return RedirectToAction(nameof(Index));
+    }
 }

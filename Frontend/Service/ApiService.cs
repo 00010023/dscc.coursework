@@ -1,3 +1,4 @@
+using System.Text;
 using SSR.Models;
 using System.Text.Json;
 
@@ -44,5 +45,28 @@ public class ApiService : IApiService
     public async Task<Post> GetPostById(int id)
     {
         return await _httpClient.GetFromJsonAsync<Post>(_apiBaseUrl + $"Post/{id}");
+    }
+    
+    public async Task CreatePost(PostCreationDto postDto)
+    {
+        var json = JsonSerializer.Serialize(postDto);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync(_apiBaseUrl + "Post", content);
+        response.EnsureSuccessStatusCode();
+    }
+    
+    // Method to delete a post by ID
+    public async Task DeletePostById(int id)
+    {
+        var response = await _httpClient.DeleteAsync(_apiBaseUrl + $"Post/{id}");
+        response.EnsureSuccessStatusCode();
+    }
+
+    // Method to delete an author by ID
+    public async Task DeleteAuthorById(int id)
+    {
+        var response = await _httpClient.DeleteAsync(_apiBaseUrl + $"Author/{id}");
+        response.EnsureSuccessStatusCode();
     }
 }

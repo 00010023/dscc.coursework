@@ -12,4 +12,9 @@ public interface IApiService
     // For Posts
     Task<IEnumerable<Post>> GetAllPosts();
     Task<Post> GetPostById(int id);
+    Task CreatePost(PostCreationDto postDto);
+    
+    // For Deletion
+    Task DeletePostById(int id);
+    Task DeleteAuthorById(int id);
 }
