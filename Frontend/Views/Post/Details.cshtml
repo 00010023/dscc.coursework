@@ -1,5 +1,9 @@
 @model SSR.Models.Post
 
+@{
+    ViewData["Title"] = Model.Title;
+}
+
 <h1>@Model.Title</h1>
 <p>By: @Model.Author.Name</p>
 <p>@Model.Content</p>

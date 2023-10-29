@@ -43,6 +43,42 @@ public class PostController : Controller
         return RedirectToAction(nameof(Index));
     }
     
+    // Action method to display the edit form
+    public async Task<IActionResult> Edit(int id)
+    {
+        var post = await _apiService.GetPostById(id);
+        if (post == null)
+        {
+            return NotFound();
+        }
+        
+        var postUpdateDto = new PostUpdateDto
+        {
+            Id = id,
+            Title = post.Title,
+            Content = post.Content,
+            AuthorName = post.Author.Name
+        };
+        
+        return View(postUpdateDto);
+    }
+
+    // Action method to handle the submission of the edit form
+    [HttpPost]
+    public async Task<IActionResult> Edit(PostUpdateDto postUpdateDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(postUpdateDto);
+        }
+
+        // Call your API to update the post
+        await _apiService.UpdatePost(postUpdateDto.Id, postUpdateDto);
+
+        // Redirect back to the list of posts or details page
+        return RedirectToAction(nameof(Index)); // or Details page
+    }
+    
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {

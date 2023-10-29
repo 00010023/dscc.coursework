@@ -53,12 +53,28 @@ namespace API.Controllers
         // PUT: api/Post/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPost(int id, Post post)
+        public async Task<IActionResult> PutPost(int id, PostUpdateDto postUpdateDto)
         {
-            if (id != post.Id)
+            var post = await _context.Posts.FindAsync(id);
+
+            if (post == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+
+            post.Title = postUpdateDto.Title;
+            post.Content = postUpdateDto.Content;
+
+            // Check if author exists, if not, create a new one
+            var author = await _context.Authors.FirstOrDefaultAsync(a => a.Name == postUpdateDto.AuthorName);
+            if (author == null)
+            {
+                author = new Author { Name = postUpdateDto.AuthorName };
+                _context.Authors.Add(author);
+                await _context.SaveChangesAsync();
+            }
+
+            post.AuthorId = author.Id;
 
             _context.Entry(post).State = EntityState.Modified;
 

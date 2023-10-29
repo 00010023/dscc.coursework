@@ -8,13 +8,12 @@ public interface IApiService
     Task<IEnumerable<Author>> GetAllAuthors();
     Task<Author> GetAuthorById(int id);
     Task<IEnumerable<Post>> GetPostsByAuthorId(int id);
-    
+    Task DeleteAuthorById(int id);
+
     // For Posts
     Task<IEnumerable<Post>> GetAllPosts();
     Task<Post> GetPostById(int id);
     Task CreatePost(PostCreationDto postDto);
-    
-    // For Deletion
+    Task UpdatePost(int postId, PostUpdateDto postUpdateDto);
     Task DeletePostById(int id);
-    Task DeleteAuthorById(int id);
 }

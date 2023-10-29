@@ -1,5 +1,9 @@
 @model SSR.Models.Author
 
+@{
+    ViewData["Title"] = "Details of " + Model.Name;
+}
+
 <h1>@Model.Name</h1>
 <p>@Model.Biography</p>
 

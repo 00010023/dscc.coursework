@@ -1,5 +1,9 @@
 @model IEnumerable<SSR.Models.Author>
 
+@{
+    ViewData["Title"] = "Authors in this Blog";
+}
+
 <h1 class="text-center mb-4">Authors</h1>
 
 @if (!Model.Any())

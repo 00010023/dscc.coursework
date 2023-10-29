@@ -1,5 +1,9 @@
 @model IEnumerable<SSR.Models.Post>
 
+@{
+    ViewData["Title"] = "Posts by " + Model.First().Author.Name;
+}
+
 <h1>Posts</h1>
 
 <table class="table">

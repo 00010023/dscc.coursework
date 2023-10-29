@@ -1,5 +1,9 @@
 @model IEnumerable<SSR.Models.Post>
 
+@{
+    ViewData["Title"] = "Posts in this Blog";
+}
+
 <h1 class="text-center mb-4">Posts</h1>
 
 @if (!Model.Any())
@@ -23,7 +27,7 @@ else
                             <h5 class="card-title">@post.Title</h5>
                             <p class="card-text">@post.Content</p>
                             <a href="@Url.Action("Details", "Post", new { id = post.Id })" class="btn btn-primary">View Details</a>
-                            @* <a href="@Url.Action("Edit", "Post", new { id = post.Id })" class="btn btn-secondary">Edit</a> *@
+                            <a href="@Url.Action("Edit", "Post", new { id = post.Id })" class="btn btn-secondary">Edit</a>
                             <form asp-action="Delete" asp-controller="Post" asp-route-id="@post.Id" method="post" class="d-inline">
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
                             </form>

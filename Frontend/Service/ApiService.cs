@@ -56,6 +56,16 @@ public class ApiService : IApiService
         response.EnsureSuccessStatusCode();
     }
     
+    // Method to update a post
+    public async Task UpdatePost(int postId, PostUpdateDto postUpdateDto)
+    {
+        var json = JsonSerializer.Serialize(postUpdateDto);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PutAsync(_apiBaseUrl + "Post/" + postId, content);
+        response.EnsureSuccessStatusCode();
+    }
+    
     // Method to delete a post by ID
     public async Task DeletePostById(int id)
     {
