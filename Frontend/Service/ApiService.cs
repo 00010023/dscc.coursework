@@ -56,6 +56,17 @@ public class ApiService : IApiService
         response.EnsureSuccessStatusCode();
     }
     
+    // Method to update an author
+    public async Task UpdateAuthor(Author author)
+    {
+        var json = JsonSerializer.Serialize(author);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PutAsync(_apiBaseUrl + $"Author/{author.Id}", content);
+        response.EnsureSuccessStatusCode();
+    }
+
+    
     // Method to update a post
     public async Task UpdatePost(int postId, PostUpdateDto postUpdateDto)
     {

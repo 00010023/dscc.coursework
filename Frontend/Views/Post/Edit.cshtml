@@ -1,5 +1,9 @@
 @model SSR.Models.PostUpdateDto
 
+@{
+    ViewData["Title"] = "Editing a Post by " + Model.AuthorName;
+}
+
 <h1 class="text-center mb-4">Edit Post</h1>
 
 <div class="container">

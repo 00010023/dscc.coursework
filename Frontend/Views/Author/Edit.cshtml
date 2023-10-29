@@ -1,0 +1,25 @@
+@model SSR.Models.Author
+
+@{
+    ViewData["Title"] = "Editing " + Model.Name + "'s Profile";
+}
+
+<h1 class="text-center mb-4">Edit Author</h1>
+
+<div class="container">
+    <form asp-action="Edit" asp-controller="Author" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Biography" class="form-label"></label>
+            <textarea asp-for="Biography" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Author</button>
+    </form>
+</div>

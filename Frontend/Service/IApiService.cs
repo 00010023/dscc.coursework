@@ -14,6 +14,7 @@ public interface IApiService
     Task<IEnumerable<Post>> GetAllPosts();
     Task<Post> GetPostById(int id);
     Task CreatePost(PostCreationDto postDto);
+    Task UpdateAuthor(Author author);
     Task UpdatePost(int postId, PostUpdateDto postUpdateDto);
     Task DeletePostById(int id);
 }

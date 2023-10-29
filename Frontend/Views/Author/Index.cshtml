@@ -28,6 +28,7 @@ else
                             <p class="card-text">@author.Biography</p>
                             <a href="@Url.Action("Details", "Author", new { id = author.Id })" class="btn btn-primary">View Details</a>
                             <a href="@Url.Action("Posts", "Author", new { id = author.Id })" class="btn btn-secondary">View Posts</a>
+                            <a href="@Url.Action("Edit", "Author", new { id = author.Id })" class="btn btn-secondary">Edit</a>
                             <form asp-action="Delete" asp-controller="Author" asp-route-id="@author.Id" method="post" class="d-inline">
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this author?');">Delete</button>
                             </form>
