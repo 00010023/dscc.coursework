@@ -29,7 +29,7 @@ namespace API.Controllers
           {
               return NotFound();
           }
-            return await _context.Posts.Include(p => p.Author).ToListAsync();
+          return await _context.Posts.Include(p => p.Author).ToListAsync();
         }
 
         // GET: api/Post/5
