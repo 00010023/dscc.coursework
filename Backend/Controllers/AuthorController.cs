@@ -24,7 +24,7 @@ namespace API.Controllers
           {
               return NotFound();
           }
-            return await _context.Authors.ToListAsync();
+          return await _context.Authors.ToListAsync();
         }
 
         // GET: api/Author/5
@@ -35,7 +35,7 @@ namespace API.Controllers
           {
               return NotFound();
           }
-            var author = await _context.Authors.FindAsync(id);
+          var author = await _context.Authors.FindAsync(id);
 
             if (author == null)
             {
@@ -46,7 +46,6 @@ namespace API.Controllers
         }
 
         // PUT: api/Author/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAuthor(int id, Author author)
         {
@@ -85,10 +84,10 @@ namespace API.Controllers
           {
               return Problem("Entity set 'AuthorContext.Authors'  is null.");
           }
-            _context.Authors.Add(author);
-            await _context.SaveChangesAsync();
+          _context.Authors.Add(author);
+          await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAuthor", new { id = author.Id }, author);
+          return CreatedAtAction("GetAuthor", new { id = author.Id }, author);
         }
 
         // DELETE: api/Author/5

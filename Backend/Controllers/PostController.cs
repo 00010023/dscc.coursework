@@ -40,7 +40,8 @@ namespace API.Controllers
           {
               return NotFound();
           }
-            var post = await _context.Posts.Include(p => p.Author).FirstOrDefaultAsync(p => p.Id == id);
+          
+          var post = await _context.Posts.Include(p => p.Author).FirstOrDefaultAsync(p => p.Id == id);
 
             if (post == null)
             {
