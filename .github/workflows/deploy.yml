@@ -13,30 +13,41 @@ jobs:
       - name: Checkout this repository
         uses: actions/checkout@v2
 
-      - name: Clone dscc.coursework-backend
+      - name: Remove git repository
         run: |
-          git clone https://github.com/00010023/dscc.coursework-backend.git
-          cd dscc.coursework-backend
-          git checkout main
-          cd ..
+          rm -rf .git
+
+      - name: Clone dscc.coursework-backend
+        uses: actions/checkout@v4
+        with:
+          path: dscc.coursework-backend
+          repository: 00010023/dscc.coursework-backend
+          ref: main
+          fetch-depth: 1
+          token: ${{ secrets.GH }}
 
       - name: Copy files from Backend folder
+        working-directory: dscc.coursework-backend
         run: |
           cp -r ./Backend/. dscc.coursework-backend/
-          git add .
 
       - name: Build and Publish ASP.NET Core app
+        working-directory: dscc.coursework-backend
         run: |
           cd dscc.coursework-backend
           dotnet restore
           dotnet build --configuration Release
           dotnet publish --configuration Release --output ./publish
 
-          # Set up credentials
+      - name: Setting up git credentials
+        working-directory: dscc.coursework-backend
+        run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
-          # Commit and push changes
+      - name: Commit and push changes
+        working-directory: dscc.coursework-backend
+        run: |
           git add .
           [[ -z $(git status -uno --porcelain) ]] && echo "No updates detected, no need for push" && exit 0;
           git commit -m "update backend $(date -u)"
