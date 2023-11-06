@@ -1,0 +1,55 @@
+name: Sync and Build Frontend
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+
+      - name: Remove git repository
+        run: |
+          rm -rf .git
+          ls -la
+
+      - name: Clone dscc.coursework-frontend
+        uses: actions/checkout@v4
+        with:
+          path: repo-frontend
+          repository: 00010023/dscc.coursework-frontend
+          ref: main
+          fetch-depth: 1
+          token: ${{ secrets.GH }}
+
+      - name: Copy files from Frontend folder
+        run: |
+          cp -r ./Frontend/. repo-frontend/
+          ls -la repo-frontend
+
+      - name: Build and Publish ASP.NET Core app
+        working-directory: repo-frontend
+        run: |
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish --configuration Release --output ./publish
+
+      - name: Setting up git credentials
+        working-directory: repo-frontend
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Commit and push changes
+        working-directory: repo-frontend
+        run: |
+          git add .
+          [[ -z $(git status -uno --porcelain) ]] && echo "No updates detected, no need for push" && exit 0;
+          git commit -m "update frontend $(date -u)"
+          git push origin main --force
+          echo "::set-output name=updated::yes"
