@@ -27,7 +27,6 @@ jobs:
           fetch-depth: 1
 
       - name: Copy files from Backend folder
-        working-directory: dscc.coursework-backend
         run: |
           cp -r ./Backend/. dscc.coursework-backend/
 
