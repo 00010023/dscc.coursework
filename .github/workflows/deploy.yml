@@ -17,7 +17,7 @@ jobs:
         run: |
           git clone https://github.com/00010023/dscc.coursework-backend.git
           cd dscc.coursework-backend
-          git checkout master
+          git checkout main
           cd ..
 
       - name: Copy files from Backend folder
