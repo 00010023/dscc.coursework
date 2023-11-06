@@ -29,6 +29,7 @@ jobs:
       - name: Copy files from Backend folder
         run: |
           cp -r ./Backend/. dscc.coursework-backend/
+          ls -la dscc.coursework-backend
 
       - name: Build and Publish ASP.NET Core app
         working-directory: dscc.coursework-backend
