@@ -28,7 +28,7 @@ jobs:
           token: ${{ secrets.GH }}
 
       - name: Clean up Backend folder
-        working-directory: repo-frontend
+        working-directory: repo-backend
         run: |
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} \;
 
