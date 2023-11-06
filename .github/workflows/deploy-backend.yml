@@ -37,7 +37,7 @@ jobs:
         run: |
           dotnet restore
           dotnet build --configuration Release
-          dotnet publish --configuration Release --output ./publish
+          dotnet publish --configuration Release --output ./app
 
       - name: Setting up git credentials
         working-directory: repo-backend
