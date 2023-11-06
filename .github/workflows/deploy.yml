@@ -24,7 +24,6 @@ jobs:
           repository: 00010023/dscc.coursework-backend
           ref: main
           fetch-depth: 1
-          token: ${{ secrets.GH }}
 
       - name: Copy files from Backend folder
         working-directory: dscc.coursework-backend
