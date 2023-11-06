@@ -11,11 +11,12 @@ jobs:
 
     steps:
       - name: Checkout this repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Remove git repository
         run: |
           rm -rf .git
+          ls -la
 
       - name: Clone dscc.coursework-backend
         uses: actions/checkout@v4
