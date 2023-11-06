@@ -28,8 +28,9 @@ jobs:
           token: ${{ secrets.GH }}
 
       - name: Clean up Frontend folder
+        working-directory: repo-frontend
         run: |
-          find repo-backend -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} \;
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} \;
 
       - name: Copy files from Frontend folder
         run: |
