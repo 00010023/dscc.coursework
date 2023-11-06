@@ -35,7 +35,6 @@ jobs:
       - name: Build and Publish ASP.NET Core app
         working-directory: repo-backend
         run: |
-          cd dscc.coursework-backend
           dotnet restore
           dotnet build --configuration Release
           dotnet publish --configuration Release --output ./publish
