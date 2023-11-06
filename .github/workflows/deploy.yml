@@ -1,0 +1,44 @@
+name: Sync and Build Backend
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v2
+
+      - name: Clone dscc.coursework-backend
+        run: |
+          git clone https://github.com/00010023/dscc.coursework-backend.git
+          cd dscc.coursework-backend
+          git checkout master
+          cd ..
+
+      - name: Copy files from Backend folder
+        run: |
+          cp -r ./Backend/. dscc.coursework-backend/
+          git add .
+
+      - name: Build and Publish ASP.NET Core app
+        run: |
+          cd dscc.coursework-backend
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish --configuration Release --output ./publish
+
+          # Set up credentials
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+          # Commit and push changes
+          git add .
+          [[ -z $(git status -uno --porcelain) ]] && echo "No updates detected, no need for push" && exit 0;
+          git commit -m "update backend $(date -u)"
+          git push origin main --force
+          echo "::set-output name=updated::yes"
